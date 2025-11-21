@@ -1,0 +1,19 @@
+name: "✨ Feature Request"
+description: "Request a new feature or improvement for THP-Contracts"
+title: "[FEATURE] "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    content: |
+      ## Summary
+      [Describe the feature you want]
+
+      ## Rationale
+      [Why is this feature useful?]
+
+      ## Implementation Notes
+      [Optional ideas or suggestions]
+
+      ## Notes
+      [Optional additional info]
