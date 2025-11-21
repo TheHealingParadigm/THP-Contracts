@@ -1,0 +1,22 @@
+name: "🐛 Bug Report"
+description: "Report a problem with THP-Contracts"
+title: "[BUG] "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    content: |
+      ## Summary
+      [Describe the problem clearly]
+
+      ## Steps to Reproduce
+      [Provide detailed steps]
+
+      ## Expected Behavior
+      [What should happen?]
+
+      ## Actual Behavior
+      [What actually happens]
+
+      ## Notes
+      [Optional additional info]
