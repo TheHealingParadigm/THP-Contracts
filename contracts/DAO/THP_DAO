@@ -1,0 +1,61 @@
+/ SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "./THP_GovernanceToken.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+/// @title THP DAO
+/// @notice Simple DAO structure using governance tokens for voting
+contract THP_DAO is Ownable {
+
+    THP_GovernanceToken public governanceToken;
+
+    struct Proposal {
+        uint256 id;
+        string description;
+        uint256 votesFor;
+        uint256 votesAgainst;
+        bool executed;
+    }
+
+    uint256 public proposalCounter;
+    mapping(uint256 => Proposal) public proposals;
+
+    constructor(address tokenAddress) {
+        governanceToken = THP_GovernanceToken(tokenAddress);
+        proposalCounter = 0;
+    }
+
+    /// @notice Create a new proposal
+    function createProposal(string memory description) external {
+        proposals[proposalCounter] = Proposal({
+            id: proposalCounter,
+            description: description,
+            votesFor: 0,
+            votesAgainst: 0,
+            executed: false
+        });
+        proposalCounter++;
+    }
+
+    /// @notice Vote on a proposal (only governance token holders)
+    function vote(uint256 proposalId, bool support) external {
+        require(governanceToken.balanceOf(msg.sender) > 0, "Must hold governance tokens to vote");
+        Proposal storage p = proposals[proposalId];
+        require(!p.executed, "Proposal already executed");
+
+        if(support) {
+            p.votesFor += governanceToken.balanceOf(msg.sender);
+        } else {
+            p.votesAgainst += governanceToken.balanceOf(msg.sender);
+        }
+    }
+
+    /// @notice Execute proposal (placeholder, implement DAO logic as needed)
+    function executeProposal(uint256 proposalId) external onlyOwner {
+        Proposal storage p = proposals[proposalId];
+        require(!p.executed, "Already executed");
+        p.executed = true;
+        // Optional: implement effects of proposal
+    }
+}
